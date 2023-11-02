@@ -1,46 +1,44 @@
 package Board;
 
+import javax.swing.*;
 import java.awt.*;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
 public class Board extends Frame {
-    private final int cellSize;
+    private final int SIZE = 8;
+    private House[][] board;
 
-    public Board(int screen, int size) {
-        if (size <= 0 || screen < size) {
-            throw new IllegalArgumentException("Invalid screen/size dimension");
-        }
+    public Board() {
+        removeAll();
+        setLayout(new GridLayout(SIZE,SIZE));
+        this.exitCommand();
+        this.createHouses();
+        this.renderBoard();
+    }
 
-        this.cellSize = screen / size;
-
-        Panel cel = new Panel() {
-            @Override
-            public void paint(Graphics g) {
-                for (int x = 0; x < size; x++) {
-                    for (int y = 0; y < size; y++) {
-                        if ((x + y) % 2 == 0) {
-                            g.setColor(Color.black);
-                        } else {
-                            g.setColor(Color.white);
-                        }
-                        g.fillRect(cellSize * x, cellSize * y, cellSize, cellSize);
-                    }
-                }
+    public void createHouses(){
+        board = new House[SIZE][SIZE];
+        for (int x = 0; x < SIZE; x++) {
+            for (int y = 0; y < SIZE; y++) {
+                board[x][y] = new House(x+1,y+1,this);
+                this.add(board[x][y]);
             }
-        };
+        }
+    }
 
-        addWindowListener(new WindowAdapter() {
+    public void renderBoard(){
+        this.setPreferredSize(new Dimension(512,512));
+        this.setResizable(false);
+        this.setVisible(true);
+        this.pack();
+    }
+
+    private void exitCommand(){
+        this.addWindowListener(new WindowAdapter() {
             public void windowClosing(WindowEvent event){
                 System.exit(0);
             }
         });
-
-        this.setBounds(0,0,screen, screen);
-        this.add(cel);
-        this.setVisible(true);
-        this.setPreferredSize(new Dimension(screen,screen+this.getInsets().top)); // adds the title border to the height
-        this.pack();
     }
-
 }
