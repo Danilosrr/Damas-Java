@@ -3,9 +3,13 @@ package Board;
 import java.awt.*;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.util.ArrayList;
 
 public class Board extends Frame {
     private final int SIZE = 8;
+    private ArrayList<House> highlightedHouses;
+    private House SelectedHouse = null;
+
     House[][] board;
 
     public Board() {
@@ -61,5 +65,21 @@ public class Board extends Frame {
                 System.exit(0);
             }
         });
+    }
+
+    public ArrayList<House> getHighlightedHouses() {
+        return this.highlightedHouses;
+    }
+
+    public void setHighlightedHouses(ArrayList<House> houses) {
+        this.highlightedHouses = houses;
+    }
+
+    public House getSelectedHouse() {
+        return this.SelectedHouse;
+    }
+
+    public void setSelectedHouse(House selectedHouse) {
+        this.SelectedHouse = selectedHouse;
     }
 }

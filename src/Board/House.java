@@ -1,10 +1,11 @@
 package Board;
 
+import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.util.Objects;
 
-public class House extends Button {
+public class House extends JButton {
     private int coordX;
     private int coordY;
     private Board board;
@@ -44,7 +45,12 @@ public class House extends Button {
 
     private void click() {
         board.resetBoardColor();
-        if (!Objects.isNull(piece)){ piece.validHouses(board); }
+        if (board. getHighlightedHouses() != null && board.getHighlightedHouses().contains(this)){ //se for uma jogada, e for válida move para essa casa.
+            board.getSelectedHouse().getPiece().move(this);
+        }
+        else if (!Objects.isNull(piece)){ //mostrar as casa válidas.
+            piece.validHouses(board);
+        }
         System.out.printf("[%d,%d]%n",this.coordX,this.coordY);
     }
 
