@@ -43,7 +43,8 @@ public class House extends Button {
     public void setPiece(Piece piece) { this.piece = piece; }
 
     private void click() {
-        if (!Objects.isNull(piece)){ piece.showValid(board); }
+        board.resetBoardColor();
+        if (!Objects.isNull(piece)){ piece.validHouses(board); }
         System.out.printf("[%d,%d]%n",this.coordX,this.coordY);
     }
 

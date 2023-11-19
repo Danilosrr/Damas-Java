@@ -47,6 +47,14 @@ public class Board extends Frame {
         this.pack();
     }
 
+    public void resetBoardColor(){
+        for (House[] houses: board) {
+            for (House house: houses) {
+                house.setBackground(house.getColor());
+            }
+        }
+    }
+
     private void exitCommand(){
         this.addWindowListener(new WindowAdapter() {
             public void windowClosing(WindowEvent event){

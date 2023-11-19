@@ -16,8 +16,8 @@ public class Piece {
         house.setPiece(this);
     }
 
-    public void showValid(Board board){
-        ArrayList<int[]> neighborsValid = new ArrayList<>();
+    public void validHouses(Board board){
+        ArrayList<House> neighborsValid = new ArrayList<>();
         int[][] neighbors = {
                 {this.coordX-1, this.coordY+1},     //diagonal superior esquerda.
                 {this.coordX-1, this.coordY-1},     //diagonal inferior esquerda.
@@ -30,18 +30,19 @@ public class Piece {
             int y = neighbor[1];
             if (1 <= x && x <= 8 && 1 <= y && y <= 8){ //checa se a casa existe.
                 if (this.color==Color.red && y>this.coordY) {//checa a direção do movimento.
-                    if (board.board[x-1][y-1].getPiece()==null) { neighborsValid.add(neighbor);} //checa casa livre
+                    if (board.board[x-1][y-1].getPiece()==null) { neighborsValid.add(board.board[x-1][y-1]);} //checa casa livre
                     //if de checagem de ataque.
-                    System.out.println(x+","+y);
                 }
                 if (this.color==Color.gray && y<this.coordY) {//checa a direção do movimento.
-                    if (board.board[x-1][y-1].getPiece()==null) { neighborsValid.add(neighbor);} //checa casa livre
-                    // if de checagem de ataque.
-                    System.out.println(x+","+y);
+                    if (board.board[x-1][y-1].getPiece()==null) { neighborsValid.add(board.board[x-1][y-1]);} //checa casa livre
+                    //if de checagem de ataque.
                 }
             }
         }
-        System.out.print(neighborsValid);
+        for (House house:neighborsValid) {
+            house.setBackground(Color.decode("#007F00"));
+            System.out.println( house.getCoordX()+","+ house.getCoordY());
+        }
     }
 
     public void move(Board board) {
