@@ -9,6 +9,7 @@ public class Board extends Frame {
     private final int SIZE = 8;
     private ArrayList<House> highlightedHouses;
     private House SelectedHouse = null;
+    private int playsCounter = 0;
 
     House[][] board;
 
@@ -81,5 +82,14 @@ public class Board extends Frame {
 
     public void setSelectedHouse(House selectedHouse) {
         this.SelectedHouse = selectedHouse;
+    }
+
+    public void increaseCounter(){
+        this.playsCounter += 1;
+    }
+
+    public int getPlayerTurn() {
+        System.out.println("turno do jogador " + (this.playsCounter%2)+1);
+        return (this.playsCounter%2)+1; // 1 ou 2
     }
 }

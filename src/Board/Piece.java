@@ -51,13 +51,16 @@ public class Piece {
     }
 
     public void move(House house) {
-        house.setPiece(this);this.setHouse(house); //cria nova posição da peça.
-        house.getBoard().getSelectedHouse().setPiece(null); //deleta a antiga posição da casa
-        house.getBoard().setHighlightedHouses(null); //reseta as casas destacadas.
-        house.getBoard().setSelectedHouse(null); //reseta a casa selecionada.
-
+        boolean redTurn = (this.getColor() == Color.red && house.getBoard().getPlayerTurn() != 1);
+        boolean grayTurn = (this.getColor() == Color.gray && house.getBoard().getPlayerTurn() == 1);
+        if(redTurn || grayTurn) {
+            house.setPiece(this);this.setHouse(house); //cria nova posição da peça.
+            house.getBoard().getSelectedHouse().setPiece(null); //deleta a antiga posição da casa
+            house.getBoard().setHighlightedHouses(null); //reseta as casas destacadas.
+            house.getBoard().setSelectedHouse(null); //reseta a casa selecionada.
+            house.getBoard().increaseCounter(); //contabiliza a jogada.
+        }
         house.getBoard().repaint();
-        System.out.println("moved");
     }
 
     public Color getColor() {
