@@ -45,12 +45,18 @@ public class House extends JButton {
 
     private void click() {
         board.resetBoardColor();
-        if (board.getHighlightedHouses() != null && board.getHighlightedHouses().contains(this)) { //se for uma jogada, e for válida move para essa casa.
-            board.getSelectedHouse().getPiece().move(this);
+        boolean validMove = board.getHighlightedHouses() != null && board.getHighlightedHouses().contains(this);
+        boolean validAttack = board.getHighlightedAttacks() != null && board.getHighlightedAttacks().contains(this);
+
+        if (validMove) { //se for uma jogada, e for válida move para essa casa.
+           if (validAttack){ //se for um ataque, remove a peça atacada.
+               board.getSelectedHouse().getPiece().attack(this);
+           }else {
+               board.getSelectedHouse().getPiece().move(this);
+           }
         } else if (!Objects.isNull(piece)) { //mostrar as casa válidas.
             piece.validHouses(board);
         }
-        System.out.printf("[%d,%d]%n", this.coordX, this.coordY);
     }
 
     @Override

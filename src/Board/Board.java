@@ -8,6 +8,7 @@ import java.util.ArrayList;
 public class Board extends Frame {
     private final int SIZE = 8;
     private ArrayList<House> highlightedHouses;
+    private ArrayList<House> highlightedAttacks;
     private House SelectedHouse = null;
     private int playsCounter = 0;
 
@@ -76,6 +77,14 @@ public class Board extends Frame {
         this.highlightedHouses = houses;
     }
 
+    public ArrayList<House> getHighlightedAttacks() {
+        return highlightedAttacks;
+    }
+
+    public void setHighlightedAttacks(ArrayList<House> highlightedAttacks) {
+        this.highlightedAttacks = highlightedAttacks;
+    }
+
     public House getSelectedHouse() {
         return this.SelectedHouse;
     }
@@ -89,7 +98,6 @@ public class Board extends Frame {
     }
 
     public int getPlayerTurn() {
-        System.out.println("turno do jogador " + (this.playsCounter%2)+1);
-        return (this.playsCounter%2)+1; // 1 ou 2
+        return (this.playsCounter%2); // 1 ou 0
     }
 }
